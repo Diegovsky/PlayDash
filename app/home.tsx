@@ -1,36 +1,52 @@
+// import {
+// 	Carousel,
+// 	CarouselContent,
+// 	CarouselItem,
+// } from "~/components/ui/carousel";
+import { Showcase, Slide } from "~/components/showcase-slides";
+import { Button } from "~/components/ui/button";
+import { Badge } from "~/components/ui/badge";
+import icons from "lucide-react";
 import type { Route } from "./+types/home";
+import type { ComponentProps, ReactElement } from "react";
+import { cn } from "~/lib/utils";
+import { Card, type Match, type Team } from "~/card";
+import Nav from "./nav";
+import NavBottom from "~/nav-bottom";
+import * as api from "~/api";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Salve" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+export function meta(_: Route.MetaArgs) {
+	return [
+		{ title: "Salve" },
+		{ name: "description", content: "Welcome to React Router!" },
+	];
 }
 
-const links = [
-  {
-    label: 'Home',
-    url: "/"
-  },
-  {
-    label: "About Us",
-    url: "/about-us"
-  }
-]
-
-export default function Home() {
-  return <>
-    <nav className="p-6 bg-red-400 flex flex-row">
-      <ul className="flex flex-row space-x-2">
-        {links.map(({label, url}) => NavItem(url, label))}
-      </ul>
-    </nav>
-    <main className="p-6">
-      <h1 className="">Olá, mundo!</h1>
-    </main>
-   </>
-}
-function NavItem(url: string, label: string) {
-    return <li className="bg-amber-900 px-1 rounded" key={label}><a href={url}>{label}</a></li>;
+export function loader(): Match[] {
+	return api.getMatches();
 }
 
+export default function Home({ loaderData }: Route.ComponentProps) {
+	return (
+		<div className="flex flex-col h-full max-md:overflow-hidden">
+			<div className="overflow-auto grow">
+				<Nav />
+				{
+					// <Showcase className="w-full">
+					// 	{carrousel.map((c) => (
+					// 		<Slide className="w-full" key={c}>
+					// 			<img className="object-cover size-full" src={c} alt="uga" />
+					// 		</Slide>
+					// 	))}
+					// </Showcase>
+				}
+				<main className="p-1 flex flex-col">
+					<div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] items-center gap-2">
+						{loaderData.map(Card)}
+					</div>
+				</main>
+			</div>
+			<NavBottom className="shrink" />
+		</div>
+	);
+}
