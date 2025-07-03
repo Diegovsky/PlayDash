@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactElement } from "react";
-import { cn } from "./lib/utils";
+import { cn } from "~/lib/utils";
 import * as icons from "lucide-react";
 
 function NBItem({ className, ...props }: ComponentProps<"a">): ReactElement {

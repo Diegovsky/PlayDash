@@ -55,6 +55,7 @@ export interface Match {
 	home_goals: number;
 	visitor_goals: number;
 }
+
 const baseUrl = "http://localhost:5000/api";
 
 async function get<T>(route: string): Promise<T> {

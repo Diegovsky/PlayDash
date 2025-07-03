@@ -11,8 +11,8 @@ import type { Route } from "./+types/home";
 import type { ComponentProps, ReactElement } from "react";
 import { cn } from "~/lib/utils";
 import { Card, type Match, type Team } from "~/card";
-import Nav from "./nav";
-import NavBottom from "~/nav-bottom";
+import Nav from "~/components/nav";
+import NavBottom from "~/components/nav-bottom";
 import * as api from "~/api";
 
 export function meta(_: Route.MetaArgs) {
