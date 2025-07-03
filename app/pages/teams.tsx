@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 import type { Route } from "./+types/teams";
 import * as api from "~/api";
 import { Shield } from "~/card";
+import { Title } from "~/components/title";
 
 export function meta(_: Route.MetaArgs) {}
 export async function loader(): Promise<api.Team[]> {
@@ -19,7 +20,7 @@ function TeamCard(team: api.Team): ReactElement {
 export default function Home({ loaderData }: Route.ComponentProps) {
 	return (
 		<>
-			<h1 className="text-3xl font-bold">Times</h1>
+			<Title>Times</Title>
 			<div className="grid grid-cols-2 gap-2 flex-col">
 				{loaderData.map(TeamCard)}
 			</div>
