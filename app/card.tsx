@@ -5,15 +5,23 @@ import Image from "~/components/image";
 import * as api from "~/api";
 import { cn } from "./lib/utils";
 
-export function Shield({ team }: { team: api.Team }): ReactElement {
-	return <Image name={team.name} url={team.emblem} />;
+export function Shield({ team, score, happened }: { team: api.Team, score: number, happened: boolean }): ReactElement {
+	return <div className="flex flex-col">
+		<Image name={team.name} url={team.emblem} />
+		{(happened) ?
+			<p className="text-center text-sm font-bold">{score}</p>
+			: null
+		}
+		</div>;
 }
 export function Card({
-	match: { id, home, visitor, date_hour, location },
+	match: { id, home, visitor, date_hour, location, visitor_goals, home_goals },
 	tint,
+	happened
 }: {
 	match: api.Match;
 	tint: string;
+	happened: boolean
 }): ReactElement {
 	const whenFmt = new Date(date_hour).toLocaleDateString();
 
@@ -25,9 +33,9 @@ export function Card({
 				tint,
 			)}
 		>
-			<Shield team={home} />
+			<Shield team={home} score={home_goals} happened={happened}/>
 			<p className="text-lg row-span-2">VS</p>
-			<Shield team={visitor} />
+			<Shield team={visitor} score={visitor_goals} happened={happened}/>
 			<div className="col-span-3 flex flex-row gap-1 flex-wrap">
 				<Badge
 					variant="outline"

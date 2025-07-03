@@ -41,9 +41,11 @@ function Section({
 	title,
 	matches,
 	tint,
+	happened
 }: {
 	title: string;
 	matches: api.Match[];
+	happened: boolean
 	tint: string;
 }): ReactElement | null {
 	if (matches.length === 0) {
@@ -54,7 +56,7 @@ function Section({
 			<Title>{title}</Title>
 			<div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] items-center gap-2">
 				{matches.map((m) => (
-					<Card key={`${title}-${m.id}`} match={m} tint={tint} />
+					<Card key={`${title}-${m.id}`} match={m} tint={tint} happened={happened} />
 				))}
 			</div>
 		</div>
@@ -67,22 +69,26 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 			<Section
 				tint="bg-chuva-claro"
 				title="Partidas Hoje"
+				happened={true}
 				matches={loaderData.today}
 			/>
 			<Section
 				tint="bg-chuva"
 				title="Partidas da Semana"
+				happened={false}
 				matches={loaderData.week}
 			/>
 
 			<Section
 				tint="bg-chuva-escuro"
-				title="Partidas a Seguir"
+				title="Partidas Futuras"
+				happened={false}
 				matches={loaderData.future}
 			/>
 			<Section
 				tint="bg-arquibancada"
 				title="Partidas Passadas"
+				happened={true}
 				matches={loaderData.past}
 			/>
 		</>
