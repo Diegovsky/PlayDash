@@ -1,32 +1,43 @@
-import { Button } from "~/components/ui/button";
+import type { ComponentProps, ReactElement } from "react";
+import { cn } from "~/lib/utils";
+import * as icons from "lucide-react";
+import { NavLink } from "react-router";
 
-const links = [
-	{
-		label: "Home",
-		url: "/",
-	},
-	{
-		label: "About Us",
-		url: "/about-us",
-	},
-];
-
-export default function Nav() {
+function NBItem({
+	className,
+	href,
+	...props
+}: ComponentProps<"a">): ReactElement {
 	return (
-		<nav className="max-md:hidden md:sticky z-100 top-0 w-full p-4 bg-sky-800 flex flex-row">
-			<ul className="flex flex-row space-x-2">
-				{links.map(({ label, url }) => NavItem(url, label))}
-			</ul>
-		</nav>
+		<NavLink
+			className={cn("cursor-pointer p-2", className)}
+			to={href ?? "/"}
+			{...props}
+		/>
 	);
 }
 
-function NavItem(url: string, label: string) {
+export default function Nav({
+	className,
+	...props
+}: ComponentProps<"nav">): ReactElement {
 	return (
-		<li key={label}>
-			<Button asChild className="text-sky-50 text-lg" variant="ghost">
-				<a href={url}>{label}</a>
-			</Button>
-		</li>
+		<nav
+			className={cn(
+				"w-full bg-chuva gap-4 text-sky-50 justify-around grid grid-flow-col",
+				className,
+			)}
+			{...props}
+		>
+			<NBItem href="/">
+				<icons.Home />
+			</NBItem>
+			<NBItem href="/teams">
+				<icons.Shield />
+			</NBItem>
+			<NBItem href="/stats">
+				<icons.ChartNoAxesColumn />
+			</NBItem>
+		</nav>
 	);
 }

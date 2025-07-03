@@ -1,35 +1,29 @@
 import type { ReactElement } from "react";
 import * as icons from "lucide-react";
 import { Badge } from "./components/ui/badge";
+import Image from "~/components/image";
 import * as api from "~/api";
+import { cn } from "./lib/utils";
 
 export function Shield({ team }: { team: api.Team }): ReactElement {
-	return (
-		<div className="flex flex-col space-y-2 items-center">
-			<div className="size-16">
-				<img
-					className="w-full object-fill"
-					src={team.emblem}
-					aria-label="Whoa"
-				/>
-			</div>
-			<h2 className="text-lg">{team.name}</h2>
-		</div>
-	);
+	return <Image name={team.name} url={team.emblem} />;
 }
 export function Card({
-	id,
-	home,
-	visitor,
-	date_hour,
-	location,
-}: api.Match): ReactElement {
+	match: { id, home, visitor, date_hour, location },
+	tint,
+}: {
+	match: api.Match;
+	tint: string;
+}): ReactElement {
 	const whenFmt = new Date(date_hour).toLocaleDateString();
 
 	return (
 		<div
 			key={`${id}`}
-			className="p-3 font-bold text-zinc-100 bg-chuva border-slate-400 gap-2 border-solid rounded card-shadow flex flex-row grid grid-cols-3 justify-items-center justify-center content-center"
+			className={cn(
+				"p-3 font-bold text-zinc-100 bg-chuva border-slate-400 gap-2 border-solid rounded card-shadow flex flex-row grid grid-cols-3 justify-items-center justify-center content-center",
+				tint,
+			)}
 		>
 			<Shield team={home} />
 			<p className="text-lg row-span-2">VS</p>

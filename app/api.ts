@@ -22,6 +22,7 @@ export interface Team {
 	losses: number;
 	goals: number;
 	own_goals: number;
+	players: Player[];
 }
 
 export interface Player {
@@ -74,9 +75,11 @@ async function get<T>(route: string): Promise<T> {
 }
 type Mapper<T> = (val: T) => Promise<void>;
 
-async function list<T>(route: string, mapper: Mapper<T>): Promise<T[]> {
+async function list<T>(route: string, mapper?: Mapper<T>): Promise<T[]> {
 	const vals = await get<T[]>(route);
-	await Promise.all(vals.map(mapper));
+	if (typeof mapper !== "undefined") {
+		await Promise.all(vals.map(mapper));
+	}
 	return vals;
 }
 
@@ -85,14 +88,25 @@ async function populateMatch(match: Match) {
 	match.home = await getTeam(match.home_team);
 }
 
-export async function getMatches(): Promise<Match[]> {
-	return list("/match", populateMatch);
+export async function getMatches(
+	filter?: "past" | "today" | "week" | "future",
+): Promise<Match[]> {
+	const args = new URLSearchParams(
+		typeof filter !== "undefined" ? { date: filter } : {},
+	);
+	return list(`/match?${args}`, populateMatch);
 }
 
 export async function getTeam(name: string): Promise<Team> {
-	return get(`/team/${name}`);
+	const team = await get<Team>(`/team/${name}`);
+	team.players = await list(`/player?team=${team.name}`);
+	return team;
 }
 
 export async function getTeams(): Promise<Team[]> {
 	return get("/team");
+}
+
+export async function getBestPlayer(): Promise<Player> {
+	return get("/stats/best_player");
 }

@@ -5,8 +5,15 @@
 
 @theme {
   --color-gramado: #94BC2E;
-  --color-chuva: #529BD1;
   --color-cerveja: #FCBF27;
+  --color-escanteio: #EA3B6D;
+  /* Cores azuis: */
+  --color-trave: #F1F2F2;
+  --color-chuva-claro: #A1C7E2;
+  --color-chuva: #529BD1;
+  --color-chuva-escuro: #335B79;
+  --color-arquibancada: #151A21;
+  /* end cores */
   --font-sans: "Raleway", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }

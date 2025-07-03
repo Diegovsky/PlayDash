@@ -9,7 +9,10 @@ import {
 export default [
 	layout("./pages/base.tsx", [
 		index("./pages/home.tsx"),
-		route("/teams", "./pages/teams.tsx"),
+
+		route("/teams/:team", "./pages/team.tsx"),
+		route("/teams", "./pages/teams.tsx", []),
+		route("/stats", "./pages/stats.tsx"),
 	]),
 	// ...(await flatRoutes()),
 ] satisfies RouteConfig;
