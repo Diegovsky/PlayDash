@@ -48,12 +48,14 @@ export interface Coach {
 
 export interface Match {
 	id: number;
-	date_hour: Date;
+	date_hour: string;
 	location: string;
 	home_team: string;
 	visitor_team: string;
 	home_goals: number;
 	visitor_goals: number;
+	home: Team;
+	visitor: Team;
 }
 
 const baseUrl = "http://localhost:5000/api";
@@ -70,9 +72,21 @@ async function get<T>(route: string): Promise<T> {
 		throw Error(err);
 	}
 }
+type Mapper<T> = (val: T) => Promise<void>;
+
+async function list<T>(route: string, mapper: Mapper<T>): Promise<T[]> {
+	const vals = await get<T[]>(route);
+	await Promise.all(vals.map(mapper));
+	return vals;
+}
+
+async function populateMatch(match: Match) {
+	match.visitor = await getTeam(match.visitor_team);
+	match.home = await getTeam(match.home_team);
+}
 
 export async function getMatches(): Promise<Match[]> {
-	return get("/match");
+	return list("/match", populateMatch);
 }
 
 export async function getTeam(name: string): Promise<Team> {
