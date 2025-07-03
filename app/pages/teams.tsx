@@ -6,24 +6,24 @@ import { Title } from "~/components/title";
 
 export function meta(_: Route.MetaArgs) {}
 export async function loader(): Promise<api.Team[]> {
-	return await api.getTeams();
+    return await api.getTeams();
 }
 
 function TeamCard(team: api.Team): ReactElement {
-	return (
-		<div className="p-2 rounded-xl border-1 border-amber-200">
-			<Shield team={team} />
-		</div>
-	);
+    return (
+        <div className="p-4 rounded-xl bg-blue-100">
+            <Shield team={team} />
+        </div>
+    );
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-	return (
-		<>
-			<Title>Times</Title>
-			<div className="grid grid-cols-2 gap-2 flex-col">
-				{loaderData.map(TeamCard)}
-			</div>
-		</>
-	);
+    return (
+        <>
+            <Title>Times</Title>
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] items-center gap-2">
+                {loaderData.map(TeamCard)}
+            </div>
+        </>
+    );
 }
