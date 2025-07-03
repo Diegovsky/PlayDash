@@ -110,3 +110,23 @@ export async function getTeams(): Promise<Team[]> {
 export async function getBestPlayer(): Promise<Player> {
 	return get("/stats/best_player");
 }
+
+export async function getWorstPlayer(): Promise<Player> {
+	return get("/stats/worst_player");
+}
+
+export async function getPlayerFairPlay(): Promise<Player> {
+	return get("/stats/player_fair_play");
+}
+
+export async function getPlayerFoulPlay(): Promise<Player> {
+	return get("/stats/player_foul_play");
+}
+
+export async function getTeamFairPlay(): Promise<Team> {
+	return get("/stats/team_fair_play");
+}
+
+export async function getTeamFoulPlay(): Promise<Team> {
+	return get("/stats/team_foul_play");
+}
