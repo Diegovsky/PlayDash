@@ -52,7 +52,7 @@ function Section({
 		return null;
 	}
 	return (
-		<div className="flex flex-col">
+		<div className="flex gap-2 flex-col">
 			<Title>{title}</Title>
 			<div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] items-center gap-2">
 				{matches.map((m) => (
