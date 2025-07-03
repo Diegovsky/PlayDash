@@ -12,6 +12,7 @@ function NBItem({
 		<NavLink
 			className={cn("cursor-pointer p-2", className)}
 			to={href ?? "/"}
+			viewTransition
 			{...props}
 		/>
 	);

@@ -24,6 +24,7 @@ export default function Team({
 					className="h-full w-full object-contain"
 				/>
 			</div>
+			<Title>Treinador</Title>
 			<Title>Jogadores</Title>
 			<div className="grid gap-2 grid-cols-2">
 				{team.players.map((p) => (

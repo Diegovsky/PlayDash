@@ -9,7 +9,7 @@ export default function Image({
 	url: string;
 }): ReactElement {
 	return (
-		<div className="flex flex-col space-y-2 items-center">
+		<div className="flex flex-col text-zinc-100 space-y-2 items-center">
 			<div className="size-16">
 				<img className="w-full object-fill" src={url} aria-label="Whoa" />
 			</div>
