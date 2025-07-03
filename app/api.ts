@@ -92,3 +92,7 @@ export async function getMatches(): Promise<Match[]> {
 export async function getTeam(name: string): Promise<Team> {
 	return get(`/team/${name}`);
 }
+
+export async function getTeams(): Promise<Team[]> {
+	return get("/team");
+}

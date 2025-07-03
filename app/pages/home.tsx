@@ -22,15 +22,8 @@ export async function loader(): Promise<api.Match[]> {
 export default function Home({ loaderData }: Route.ComponentProps) {
 	console.log(loaderData);
 	return (
-		<div className="flex flex-col h-full max-md:overflow-hidden">
-			<div className="overflow-auto grow">
-				<main className="p-1 flex flex-col">
-					<div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] items-center gap-2">
-						{loaderData.map(Card)}
-					</div>
-				</main>
-			</div>
-			<NavBottom className="shrink" />
+		<div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] items-center gap-2">
+			{loaderData.map(Card)}
 		</div>
 	);
 }

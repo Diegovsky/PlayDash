@@ -13,19 +13,16 @@ export default function NavBottom({
 	return (
 		<nav
 			className={cn(
-				"w-full bg-sky-800 gap-4 text-sky-50 justify-around grid grid-flow-col",
+				"w-full bg-chuva gap-4 text-sky-50 justify-around grid grid-flow-col",
 				className,
 			)}
 			{...props}
 		>
-			<NBItem>
+			<NBItem href="/">
 				<icons.Home />
 			</NBItem>
-			<NBItem>
-				<icons.Search />
-			</NBItem>
-			<NBItem>
-				<icons.Book />
+			<NBItem href="/teams">
+				<icons.Shield />
 			</NBItem>
 		</nav>
 	);
